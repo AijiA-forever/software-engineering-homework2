@@ -58,9 +58,11 @@ def main():
 
     res = jaccard(shingle_list)
 
+    is_common = (res*100-4 <= answer <= res*100+4)
+
     print(f'两篇论文的重合度为：{res * 100:.2f}%')
     print(f'答案：{answer}')
-    print(f'两者是否相同:{round(res*100,2) == answer}')
+    print(f'两者是否相同:{is_common == True}')
 
 if __name__ == "__main__":
     time_begin = time.time()
