@@ -1,6 +1,9 @@
+import tracemalloc
+
 import jieba
 import argparse
 import re  # 正则模块，用来清洗数据
+import time
 
 def re_jieba(text):
     """
@@ -60,8 +63,19 @@ def main():
     print(f'两者是否相同:{round(res*100,2) == answer}')
 
 if __name__ == "__main__":
-    main()
+    time_begin = time.time()
+    # tracemalloc.start()
 
+    main()
+    # 获取内存占用情况
+    # current, peak = tracemalloc.get_traced_memory()
+    # tracemalloc.stop()
+
+    time_end = time.time()
+    run_time = time_end - time_begin
+    print(f"运行时长：{run_time:.4f} 秒")
+    # print(f"当前内存占用：{current / 1024 / 1024:.2f} MB")
+    # print(f"内存峰值：{peak / 1024 / 1024:.2f} MB")
 
 
 
