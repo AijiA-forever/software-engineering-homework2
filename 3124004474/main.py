@@ -56,13 +56,14 @@ def main():
 
     shingle_list = [n_gram(wordsA,2), n_gram(wordsB,2)]
 
-    res = jaccard(shingle_list)
+    res = jaccard(shingle_list) * 100
 
-    is_common = (res*100-4 <= answer <= res*100+4)
+    is_common = (res*0.9 <= answer <= res*1.1)
 
-    print(f'两篇论文的重合度为：{res * 100:.2f}%')
+    print(f'两篇论文的重合度为：{res:.2f}%')
     print(f'答案：{answer}')
-    print(f'两者是否相同:{is_common == True}')
+    print(f'两者是否相似：{is_common == True}')
+    print(f'两者相差比例：{abs(res - answer) / answer * 100:.2f}%')
 
 if __name__ == "__main__":
     time_begin = time.time()
