@@ -11,7 +11,7 @@ def re_jieba(text):
     text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9]', '', text)
     return jieba.lcut(text)
 
-def n_gram(words, k = 5):
+def n_gram(words, k = 2):
     """
     :param words: 已进行分词的数据列表
     :param k: 滑动窗口大小
@@ -51,7 +51,7 @@ def main():
     wordsA = re_jieba(textA)
     wordsB = re_jieba(textB)
 
-    shingle_list = [n_gram(wordsA), n_gram(wordsB)]
+    shingle_list = [n_gram(wordsA,2), n_gram(wordsB,2)]
 
     res = jaccard(shingle_list)
 
