@@ -20,7 +20,7 @@ def n_gram(words, k = 2):
     :param k: 滑动窗口大小
     :return: N-Gram集合，所有滑动窗口片段构成的集合
     """
-    shingle = set([tuple(words[i:i+k]) for i in range(0, len(words) - k + 1)])
+    shingle = {tuple(words[i:i+k]) for i in range(0, len(words) - k + 1)}
     return shingle
 
 def jaccard(shingle_list):
@@ -34,6 +34,9 @@ def jaccard(shingle_list):
     return inters/uni
 
 def main():
+    # 提前初始化 jieba，让词典加载时间更明确
+    jieba.initialize()
+
     # 创建一个参数解析器对象parser, description用于描述脚本功能, 通过python main.py -h查找帮助
     parser = argparse.ArgumentParser(description="对文本文件进行jieba分词")
     # 告诉解释器，需要接收一个命令行参数
@@ -59,11 +62,12 @@ def main():
     res = jaccard(shingle_list) * 100
 
     is_common = (res*0.9 <= answer <= res*1.1)
+    diff_ratio = (abs(res - answer) / answer * 100) if answer != 0 else 0
 
     print(f'两篇论文的重合度为：{res:.2f}%')
-    print(f'答案：{answer}')
+    print(f'答案：{answer}%')
     print(f'两者是否相似：{is_common == True}')
-    print(f'两者相差比例：{abs(res - answer) / answer * 100:.2f}%')
+    print(f'两者相差比例：{diff_ratio:.2f}%')
 
 if __name__ == "__main__":
     time_begin = time.time()

@@ -67,4 +67,5 @@ def batch_check(original_dir="test_cases\\original",plagiarism_dir="test_cases\\
         # with open(result_path, "a", encoding="utf-8") as f:
         #     f.write(f"最大内存占用：{peak/1024/1024:.4f}MB\n")
 
-batch_check()
+if __name__ == "__main__":
+    batch_check()
