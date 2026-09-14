@@ -42,7 +42,7 @@ def main():
     # 告诉解释器，需要接收一个命令行参数
     parser.add_argument("file_pathA", help="原文本文件路径")
     parser.add_argument("file_pathB", help="抄袭文本文件路径")
-    parser.add_argument("file_pathC", help="答案文本文件路径")
+    # parser.add_argument("file_pathC", help="答案文本文件路径")
 
     # 解析命令行参数，把拿到的所有参数打包放到args对象里，此时就可以args.file_path
     args = parser.parse_args()
@@ -51,8 +51,8 @@ def main():
         textA = f.read()
     with open(args.file_pathB, "r", encoding="utf-8") as f:
         textB = f.read()
-    with open(args.file_pathC, "r", encoding="utf-8") as f:
-        answer = float(f.read().strip())
+    # with open(args.file_pathC, "r", encoding="utf-8") as f:
+    #     answer = float(f.read().strip())
 
     wordsA = re_jieba(textA)
     wordsB = re_jieba(textB)
@@ -61,13 +61,13 @@ def main():
 
     res = jaccard(shingle_list) * 100
 
-    is_common = (res*0.9 <= answer <= res*1.1)
-    diff_ratio = (abs(res - answer) / answer * 100) if answer != 0 else 0
+    # is_common = (res*0.9 <= answer <= res*1.1)
+    # diff_ratio = (abs(res - answer) / answer * 100) if answer != 0 else 0
 
     print(f'两篇论文的重合度为：{res:.2f}%')
-    print(f'答案：{answer}%')
-    print(f'两者是否相似：{is_common == True}')
-    print(f'两者相差比例：{diff_ratio:.2f}%')
+    # print(f'答案：{answer}%')
+    # print(f'两者是否相似：{is_common == True}')
+    # print(f'两者相差比例：{diff_ratio:.2f}%')
 
 if __name__ == "__main__":
     time_begin = time.time()
